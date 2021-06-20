@@ -1,0 +1,17 @@
+[
+    {
+        "id": 1,
+        "name": "beef",
+        "stock": 100
+    },
+    {
+        "id": 2,
+        "name": "chicken",
+        "stock": 100
+    },
+    {
+        "id": 3,
+        "name": "fish",
+        "stock": 100
+    }
+]

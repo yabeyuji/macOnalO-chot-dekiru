@@ -1,0 +1,12 @@
+[
+    {
+        "id": 1,
+        "name": "cheese",
+        "stock": 100
+    },
+    {
+        "id": 2,
+        "name": "pickles",
+        "stock": 100
+    }
+]

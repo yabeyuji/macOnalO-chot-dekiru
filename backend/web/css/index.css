@@ -1,0 +1,38 @@
+
+[v-cloak] {
+  display: none;
+}
+
+.add-button-style {
+  /* margin: 4px; */
+  border-radius: 16px;
+  color: white;
+  text-align: center;
+  border-width: 4px !important;
+  border-color: transparent !important;
+}
+
+.border_color_black {
+  border-color: #333333 !important;
+}
+
+.border_color_gray {
+  border-color: #6c757d !important;
+}
+
+.border_color_transparent {
+  border-color: transparent !important;
+}
+
+
+.text-left {
+  text-align: left;
+}
+
+.badge {
+  margin-left: 10px;
+  padding: 10px;
+}
+
+
+

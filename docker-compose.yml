@@ -1,0 +1,129 @@
+version: '3.6'
+services:
+
+    mysql:
+        restart: always
+        container_name: mysql
+        build:
+            context: ./db/engine/mysql
+            dockerfile: Dockerfile
+        environment:
+            - MYSQL_DATABASE=${MYSQL_DATABASE}
+            - MYSQL_USER=${MYSQL_USER}
+            - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+            - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+            - TZ=${TZ}
+        ports:
+            - ${MYSQL_PORTS}
+        volumes:
+            - ./db/engine/mysql/conf.d:/etc/mysql/conf.d
+            - ./db/engine/mysql/initdb.d:/docker-entrypoint-initdb.d
+            - ./db/engine/mysql/data:/var/lib/mysql
+
+
+    postgres:
+        restart: always
+        container_name: postgres
+        hostname: postgres
+        build:
+            context: ./db/engine/postgres
+            dockerfile: Dockerfile
+        ports:
+            - ${POSTGRES_PORTS}
+        environment:
+            - POSTGRES_DB=${POSTGRES_DB}
+            - POSTGRES_USER=${POSTGRES_USER}
+            - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+        user: root
+        volumes:
+            - ./db/engine/postgres/initdb.d:/docker-entrypoint-initdb.d
+            - ./db/engine/postgres/data:/var/lib/postgres/data
+
+    mongo:
+        restart: always
+        container_name: mongo
+        build:
+            context: ./db/engine/mongo
+            dockerfile: Dockerfile
+        environment:
+            - MONGO_INITDB_DATABASE=${MONGO_INITDB_DATABASE}
+            - MONGO_INITDB_ROOT_USERNAME=${MONGO_INITDB_ROOT_USERNAME}
+            - MONGO_INITDB_ROOT_PASSWORD=${MONGO_INITDB_ROOT_PASSWORD}
+            - TZ=${TZ}
+        ports:
+            - ${MONG_PORTS}
+        command: mongod --quiet --logpath /dev/null
+        volumes:
+            - ./db/engine/mongo/initdb.d:/docker-entrypoint-initdb.d
+
+    backend:
+        restart: always
+        build:
+            context: ./backend
+            dockerfile: build/Dockerfile
+        container_name: backend
+        volumes:
+            - ./backend:/go/src/backend
+        ports:
+            - ${MOBILE_PORT}
+            - ${PC_PORT}
+            - ${DELIVERY_PORT}
+            - ${MONITOR_PORT}
+        environment:
+            - GOPATH=${GOPATH}
+        tty: true
+        links:
+            - mysql
+            - postgres
+            - mongo
+        depends_on:
+            - mysql
+            - postgres
+            - mongo
+
+
+    # phpmyadmin:
+    #     container_name: phpmyadmin
+    #     build:
+    #         context: ./db/tool/phpmyadmin
+    #         dockerfile: Dockerfile
+    #     environment:
+    #         - PMA_ARBITRARY=1
+    #         - PMA_HOST=mysql
+    #         - PMA_USER=root
+    #         - PMA_PASSWORD=password
+    #     ports:
+    #         - "8090:80"
+    #     volumes:
+    #         - "./db/tool/phpmyadmin/sessions:/sessions"
+    #     links:
+    #         - mysql
+    #     depends_on:
+    #         - mysql
+
+    # pgadmin:
+    #     restart: always
+    #     container_name: pgadmin
+    #     hostname: pgadmin
+    #     build:
+    #         context: ./db/tool/pgadmin
+    #         dockerfile: Dockerfile
+    #     ports:
+    #         - 8091:80
+    #     volumes:
+    #         - ./db/tool/pgadmin:/var/lib/pgadmin/storage
+    #     environment:
+    #         PGADMIN_DEFAULT_EMAIL: root
+    #         PGADMIN_DEFAULT_PASSWORD: root
+    #     depends_on:
+    #         - postgres
+
+    # mongo-express:
+    #     image: mongo-express
+    #     restart: always
+    #     ports:
+    #         - 18081:8081
+    #     environment:
+    #         ME_CONFIG_MONGODB_ADMINUSERNAME: user
+    #         ME_CONFIG_MONGODB_ADMINPASSWORD: user
+

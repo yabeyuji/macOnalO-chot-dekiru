@@ -1,0 +1,30 @@
+{
+    "hamburgers":[
+        {
+            "top": 1,
+            "middle": 1,
+            "bottom": 1,
+            "beef": 2 ,
+            "chicken": 0,
+            "fish": 0,
+            "lettuce": 1,
+            "tomato": 1,
+            "onion": 0,
+            "cheese": 1,
+            "pickles": 1
+        },
+        {
+            "top": 1,
+            "middle": 1,
+            "bottom": 1,
+            "beef": 2 ,
+            "chicken": 0,
+            "fish": 0,
+            "lettuce": 1,
+            "tomato": 1,
+            "onion": 0,
+            "cheese": 1,
+            "pickles": 1
+        }
+    ]
+}

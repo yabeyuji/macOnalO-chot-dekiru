@@ -1,0 +1,44 @@
+{{define "index"}}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+	<link rel="icon" href="/web/image/favicon.ico">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+	<title>monitor</title>
+	<meta name="description" content="monitor">
+	<meta name="theme-color" content="#333333" />
+	<link rel="stylesheet" href="//stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+	<link rel="stylesheet" href="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.css" type="text/css" />
+	<link type="text/css" rel="stylesheet" href="web/css/index.css" media="all">
+</head>
+
+<body style="background-color: #333333;">
+	<div id="app">
+		<br>
+		<b-container fluid class="text-light text-center">
+			<monitor
+				:common-class="commonClass"
+				:reserves="reserves"
+				:assembles="assembles"
+				:completes="completes"
+				:passes="passes"
+			>
+		</monitor>
+		</b-container>
+	</div>
+	<br><br><br>
+
+	<script src="//cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+	<script src="//cdn.jsdelivr.net/npm/vue/dist/vue.min.js"></script>
+	<script src="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.js"></script>
+	<script src="//cdn.jsdelivr.net/npm/http-vue-loader@1.4.2/src/httpVueLoader.min.js"></script>
+	<script src="web/js/index.js" type="module"></script>
+</body>
+
+</html>
+{{end}}

@@ -1,0 +1,59 @@
+syntax = "proto3";
+
+option go_package = "github.com/YujiYabe/macOnalO-chot-dekiru/backend/internal/1_frameworks_driver/in/delivery";
+
+package delivery;
+
+message Order {
+  repeated Combo Combos = 1;
+  repeated Hamburger Hamburgers = 2;
+  repeated SideMenu SideMenus = 3;
+  repeated Drink Drinks = 4;
+}
+
+message Combo {
+  Hamburger Hamburger = 1;
+  SideMenu SideMenu = 2;
+  Drink Drink = 3;
+}
+
+
+message Hamburger {
+  // bans
+  int32 Top = 1;
+  int32 Middle = 2;
+  int32 Bottom = 3;
+  // patty
+  int32 Beef = 4;
+  int32 Chicken = 5;
+  int32 Fish = 6;
+  //vegetable
+  int32 Lettuce = 7;
+  int32 Tomato = 8;
+  int32 Onion = 9;
+  //ingredient
+  int32 Cheese = 10;
+  int32 Pickles = 11;
+}
+
+message SideMenu {
+  int32 Name = 1;
+}
+
+message Drink {
+  int32 Name = 1;
+}
+
+
+
+  // -------------------------------------------
+gateway DeliveryService {
+  rpc DeliveryRPC (DeliveryRequest) returns (DeliveryResponse) {}
+}
+message DeliveryRequest {
+  Order Order = 1;
+}
+
+message DeliveryResponse {
+  string OrderNumber = 1;
+}
